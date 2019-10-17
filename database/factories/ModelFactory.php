@@ -35,3 +35,12 @@ $factory->define(App\Role::class, function ($faker) {
         // Fields here
     ];
 });
+
+/**
+ * Factory definition for model App\Department.
+ */
+$factory->define(App\Department::class, function ($faker) {
+    return [
+        // Fields here
+    ];
+});

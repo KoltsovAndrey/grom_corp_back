@@ -38,4 +38,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->belongsTo("App\Role");
     }
+
+    public function department()
+    {
+        return $this->belongsTo("App\Department");
+    }
 }

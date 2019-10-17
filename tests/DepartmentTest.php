@@ -3,14 +3,17 @@
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class RoleTest extends TestCase
+class DepartmentTest extends TestCase
 {
     public function testlist()
     {
-        $this->get('/role')->seeJsonStructure([
+        $this->get('/department')->seeJsonStructure([
             '*' => [
                 'id',
                 'name',
+                'e_mail',
+                'phone',
+                'phone_city',
             ],
         ]);
     }

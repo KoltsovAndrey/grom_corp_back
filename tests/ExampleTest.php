@@ -3,15 +3,19 @@
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class RoleTest extends TestCase
+class ExampleTest extends TestCase
 {
-    public function testlist()
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testExample()
     {
-        $this->get('/role')->seeJsonStructure([
-            '*' => [
-                'id',
-                'name',
-            ],
-        ]);
+        $this->get('/');
+
+        $this->assertEquals(
+            $this->app->version(), $this->response->getContent()
+        );
     }
 }
