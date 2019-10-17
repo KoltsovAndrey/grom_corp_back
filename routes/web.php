@@ -37,3 +37,14 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/user/detail', 'UsersController@detail');
 });
 // $router->post('/user/detail', ['middleware' => 'auth', 'UsersController@for_id']);
+/**
+ * Routes for resource role
+ */
+// $app->get('role', 'RolesController@all');
+// $app->get('role/{id}', 'RolesController@get');
+// $app->post('role', 'RolesController@add');
+// $app->put('role/{id}', 'RolesController@put');
+// $app->delete('role/{id}', 'RolesController@remove');
+$router->group(['prefix' => '/role'], function () use ($router) {
+    $router->get('/', 'RoleController@list');
+});

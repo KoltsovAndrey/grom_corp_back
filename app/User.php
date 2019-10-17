@@ -33,4 +33,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $dates = [
         'created_at', 'updated_at'
     ];
+
+    public function role()
+    {
+        return $this->belongsTo("App\Role");
+    }
 }

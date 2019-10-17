@@ -26,3 +26,12 @@ $factory->define(App\User::class, function ($faker) {
         'email' => $faker->fillable,
     ];
 });
+
+/**
+ * Factory definition for model App\Role.
+ */
+$factory->define(App\Role::class, function ($faker) {
+    return [
+        // Fields here
+    ];
+});
