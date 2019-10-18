@@ -43,4 +43,9 @@ $router->group(['prefix' => '/role'], function () use ($router) {
 
 $router->group(['prefix' => '/department'], function () use ($router) {
     $router->get('/', 'DepartmentController@list');
+    $router->get('/for_id/{id}', 'DepartmentController@for_id');
+
+    $router->post('/create', 'DepartmentController@create');
+    $router->post('/update', 'DepartmentController@update');
+    $router->post('/delete', 'DepartmentController@delete');
 });

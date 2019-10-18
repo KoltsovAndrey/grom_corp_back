@@ -23,7 +23,8 @@ class DepartmentController extends Controller {
     {
         $dep = Department::create([
             'name' => $request->name,
-            'e_mail' => $request->e_mail,
+            'full_name' => $request->full_name,
+            'email' => $request->email,
             'phone' => $request->phone,
             'phone_city' => $request->phone_city,
         ]);
@@ -36,7 +37,8 @@ class DepartmentController extends Controller {
         $dep = Department::where('id', $request->id)->first();
 
         $dep->name = $request->name;
-        $dep->e_mail = $request->e_mail;
+        $dep->full_name = $request->full_name;
+        $dep->email = $request->email;
         $dep->phone = $request->phone;
         $dep->phone_city = $request->phone_city;
 

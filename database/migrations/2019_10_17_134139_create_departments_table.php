@@ -11,7 +11,8 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('e_mail')->nullable();
+            $table->string('full_name');
+            $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('phone_city')->nullable();
             // Constraints declaration
