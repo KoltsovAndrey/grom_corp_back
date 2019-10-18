@@ -44,3 +44,12 @@ $factory->define(App\Department::class, function ($faker) {
         // Fields here
     ];
 });
+
+/**
+ * Factory definition for model App\Post.
+ */
+$factory->define(App\Post::class, function ($faker) {
+    return [
+        // Fields here
+    ];
+});

@@ -1,8 +1,9 @@
 <?php
 
+use App\Post;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class PostSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,11 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            RoleSeed::class,
-            DepartmentSeed::class,
-            PostSeed::class,
-            
+        Post::create([
+            'name' => 'admin',
         ]);
     }
 }

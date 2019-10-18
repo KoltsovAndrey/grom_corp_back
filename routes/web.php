@@ -54,3 +54,12 @@ $router->group(['prefix' => '/department'], function () use ($router) {
     $router->post('/update', 'DepartmentController@update');
     $router->post('/delete', 'DepartmentController@delete');
 });
+
+$router->group(['prefix' => '/post'], function () use ($router) {
+    $router->get('/', 'PostController@list');
+    $router->get('/for_id/{id}', 'PostController@for_id');
+
+    $router->post('/create', 'PostController@create');
+    $router->post('/update', 'PostController@update');
+    $router->post('/delete', 'PostController@delete');
+});

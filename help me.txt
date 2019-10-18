@@ -3,3 +3,5 @@ php -S localhost:8000 -t public
 php artisan wn:resource task "name;string;required;fillable project_id;integer:unsigned;numeric;fillable,key due;date;;date" --add=timestamps --belongs-to=project
 php artisan wn:resource user "name;string;required;fillable email;string;required;unique;fillable password;string;required;hidden token;string;nullable;hidden" --add=timestamps
 https://github.com/webNeat/lumen-generators
+
+composer dump-autoload
