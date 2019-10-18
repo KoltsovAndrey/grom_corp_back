@@ -34,7 +34,7 @@ class RoleController extends Controller {
 
         $role->name = $request->name;
 
-        $role>save();
+        $role->save();
 
         return $role;
     }

@@ -39,6 +39,11 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
 $router->group(['prefix' => '/role'], function () use ($router) {
     $router->get('/', 'RoleController@list');
+    $router->get('/for_id/{id}', 'RoleController@for_id');
+
+    $router->post('/create', 'RoleController@create');
+    $router->post('/update', 'RoleController@update');
+    $router->post('/delete', 'RoleController@delete');
 });
 
 $router->group(['prefix' => '/department'], function () use ($router) {
