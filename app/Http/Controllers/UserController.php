@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UsersController extends Controller {
+class UserController extends Controller {
 
     const MODEL = "App\User";
 
@@ -30,9 +30,18 @@ class UsersController extends Controller {
     public function create(Request $request)
     {
         $user = User::create([
-            'email' => $request->email,
+            'first_name' => $request->first_name,
+            'second_name' => $request->second_name,
+            'middle_name' => $request->middle_name,
+            'login' => $request->login,
             'password' => Hash::make($request->password),
-            'name' => $request->name,
+            'role_id' => $request->role_id,
+            'post_id' => $request->post_id,
+            'department_id' => $request->department_id,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'phonte_city' => $request->phone_city,
+            'photo' => $request->photo,
         ]);
 
         return $user;
@@ -40,9 +49,20 @@ class UsersController extends Controller {
 
     public function update(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('id', $request->id)->first();
 
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->second_name = $request->second_name;
+        $user->middle_name = $request->middle_name;
+        $user->login = $request->login;
+        // $user->password = Hash::make($request->password);
+        $user->role_id = $request->role_id;
+        $user->post_id = $request->post_id;
+        $user->department_id = $request->department_id;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->phonte_city = $request->phone_city;
+        $user->photo = $request->photo;
 
         $user->save();
 
@@ -51,7 +71,7 @@ class UsersController extends Controller {
 
     public function delete(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('id', $request->id)->first();
 
         $user->delete();
 
@@ -65,7 +85,7 @@ class UsersController extends Controller {
         //     'password' => 'required',
         // ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('id', $request->id)->first();
 
         if(Hash::check($request->password, $user->password)) {
             $token = base64_encode(str_random(64));

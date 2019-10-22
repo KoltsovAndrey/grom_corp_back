@@ -18,20 +18,11 @@ $router->get('/', function () use ($router) {
 $router->get('/key', function() {
     return str_random(32);
 });
-/**
- * Routes for resource user
- */
-// $app->get('user', 'UsersController@all');
-// $app->get('user/{id}', 'UsersController@get');
-// $app->post('user', 'UsersController@add');
-// $app->put('user/{id}', 'UsersController@put');
-// $app->delete('user/{id}', 'UsersController@remove');
 
-// $router->get('/login', 'UsersController@login');
 $router->post('/login', 'UsersController@login');
 $router->post('/logout', 'UsersController@logout');
 
-$router->post('/users/create', 'UsersController@create');
+// $router->post('/users/create', 'UserController@create');
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/user/detail', 'UsersController@detail');
@@ -62,4 +53,13 @@ $router->group(['prefix' => '/post'], function () use ($router) {
     $router->post('/create', 'PostController@create');
     $router->post('/update', 'PostController@update');
     $router->post('/delete', 'PostController@delete');
+});
+
+$router->group(['prefix' => '/user'], function () use ($router) {
+    $router->get('/', 'UserController@list');
+    $router->get('/for_id/{id}', 'UserController@for_id');
+
+    $router->post('/create', 'UserController@create');
+    $router->post('/update', 'UserController@update');
+    $router->post('/delete', 'UserController@delete');
 });
