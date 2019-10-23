@@ -51,6 +51,10 @@ class UserTest extends TestCase
             'post_id' => 1,
             'department_id' => 1,
             'password' => Hash::make('password'),
+            'email' => 'email',
+            'phone' => '999',
+            'phone_city' => '99-99-99',
+            'photo' => 'photo',
         ];
 
         $this->post('/user/create', $data)
@@ -62,6 +66,10 @@ class UserTest extends TestCase
                 'role_id' => $data['role_id'],
                 'post_id' => $data['post_id'],
                 'department_id' => $data['department_id'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'phone_city' => $data['phone_city'],
+                'photo' => $data['photo'],
             ]);
     }
 
@@ -76,6 +84,10 @@ class UserTest extends TestCase
             'post_id' => 1,
             'department_id' => 1,
             'password' => Hash::make('password'),
+            'email' => 'email',
+            'phone' => '999',
+            'phone_city' => '99-99-99',
+            'photo' => 'photo',
         ];
 
         $user = json_decode($this->post('/user/create', $data)->response->getContent());
@@ -89,6 +101,10 @@ class UserTest extends TestCase
             'role_id' => 1,
             'post_id' => 1,
             'department_id' => 1,
+            'email' => 'new email',
+            'phone' => 'new 999',
+            'phone_city' => 'new 99-99-99',
+            'photo' => 'new photo',
         ];
 
         $this->post('/user/update', $new_data)
@@ -100,6 +116,10 @@ class UserTest extends TestCase
                 'role_id' => $new_data['role_id'],
                 'post_id' => $new_data['post_id'],
                 'department_id' => $new_data['department_id'],
+                'email' => $new_data['email'],
+                'phone' => $new_data['phone'],
+                'phone_city' => $new_data['phone_city'],
+                'photo' => $new_data['photo'],
             ]);
     }
 

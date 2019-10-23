@@ -40,7 +40,7 @@ class UserController extends Controller {
             'department_id' => $request->department_id,
             'email' => $request->email,
             'phone' => $request->phone,
-            'phonte_city' => $request->phone_city,
+            'phone_city' => $request->phone_city,
             'photo' => $request->photo,
         ]);
 
