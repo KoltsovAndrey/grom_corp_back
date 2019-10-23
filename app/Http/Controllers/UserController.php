@@ -61,7 +61,7 @@ class UserController extends Controller {
         $user->department_id = $request->department_id;
         $user->email = $request->email;
         $user->phone = $request->phone;
-        $user->phonte_city = $request->phone_city;
+        $user->phone_city = $request->phone_city;
         $user->photo = $request->photo;
 
         $user->save();
