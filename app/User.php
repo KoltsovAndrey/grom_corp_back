@@ -48,4 +48,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->belongsTo("App\Post");
     }
+
+    public function journal()
+    {
+        return $this->hasMany("App\User");
+    }
 }

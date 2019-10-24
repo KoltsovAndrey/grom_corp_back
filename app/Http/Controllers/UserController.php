@@ -77,32 +77,4 @@ class UserController extends Controller {
 
         return ['status' => 'success'];
     }
-
-    public function login(Request $request)
-    {
-        // $this->validate($request, [
-        //     'email' => 'required',
-        //     'password' => 'required',
-        // ]);
-
-        $user = User::where('id', $request->id)->first();
-
-        if(Hash::check($request->password, $user->password)) {
-            $token = base64_encode(str_random(64));
-            User::where('email', $request->email)->update(['token' => $token]);
-            return response()->json(['status' => 'success', 'token' => $token]);
-        }
-        else {
-            return response()->json(['status' => 'error'], 401);
-        }
-    }
-
-    public function logout()
-    {
-        $user = Auth::user();
-
-        $user->update(['token' => null]);
-
-        return ['status' => 'logout success'];
-    }
 }

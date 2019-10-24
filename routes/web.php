@@ -19,10 +19,8 @@ $router->get('/key', function() {
     return str_random(32);
 });
 
-$router->post('/login', 'UsersController@login');
-$router->post('/logout', 'UsersController@logout');
-
-// $router->post('/users/create', 'UserController@create');
+$router->post('/login', 'JournalController@login');
+$router->post('/logout', 'JournalController@logout');
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/user/detail', 'UsersController@detail');
@@ -62,4 +60,9 @@ $router->group(['prefix' => '/user'], function () use ($router) {
     $router->post('/create', 'UserController@create');
     $router->post('/update', 'UserController@update');
     $router->post('/delete', 'UserController@delete');
+});
+
+$router->group(['prefix' => '/journal'], function () use ($router) {
+    $router->get('/', 'JournalController@list');
+    $router->get('/for_id/{id}', 'JournalController@for_id');
 });
