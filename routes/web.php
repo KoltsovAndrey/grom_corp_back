@@ -20,7 +20,7 @@ $router->get('/key', function() {
 });
 
 $router->post('/login', 'JournalController@login');
-$router->post('/logout', 'JournalController@logout');
+$router->post('/logout', 'JournalphpController@logout');
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/user/detail', 'UsersController@detail');
