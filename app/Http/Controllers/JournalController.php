@@ -4,6 +4,7 @@ use App\Journal;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class JournalController extends Controller {
 
@@ -34,7 +35,7 @@ class JournalController extends Controller {
     public function login(Request $request)
     {
         $user = User::where('login', $request->login)->first();
-
+        // dd($user);
         if(Hash::check($request->password, $user->password)) {
             $token = base64_encode(str_random(64));
             
