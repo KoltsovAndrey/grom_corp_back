@@ -56,6 +56,7 @@ class JournalController extends Controller {
     public function logout(Request $request)
     {
         $user = Auth::user();
+        dd($user);
 
         $journal = Journal::where('token', $request->token)->last();
 

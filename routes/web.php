@@ -20,12 +20,14 @@ $router->get('/key', function() {
 });
 
 $router->post('/login', 'JournalController@login');
-$router->post('/logout', 'JournalphpController@logout');
+
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/user/detail', 'UserController@detail');
 
     $router->get('/role', 'RoleController@list');
+
+    $router->post('/logout', 'JournalphpController@logout');
 });
 
 $router->group(['prefix' => '/role'], function () use ($router) {
