@@ -27,7 +27,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
     $router->get('/role', 'RoleController@list');
 
-    $router->post('/logout', 'JournalphpController@logout');
+    $router->post('/logout', 'JournalController@logout');
 });
 
 $router->group(['prefix' => '/role'], function () use ($router) {

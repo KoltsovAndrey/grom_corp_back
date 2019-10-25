@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Journal;
 use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -32,7 +33,9 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app['auth']->viaRequest('api', function ($request) {
             if ($request->headers->get('token')) {
-                return User::where('token', $request->headers->get('token'))->first();
+                $journal = Journal::where([['token', $request->headers->get('token')],['platform', $request->headers->get('platform')]])->first();
+                // dd($journal->user_id);
+                return User::where('id', $journal->user_id )->first();
             }
         });
     }

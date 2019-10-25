@@ -4,6 +4,7 @@ use App\Journal;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class JournalController extends Controller {
@@ -35,7 +36,7 @@ class JournalController extends Controller {
     public function login(Request $request)
     {
         $user = User::where('login', $request->login)->first();
-        // dd($user);
+
         if(Hash::check($request->password, $user->password)) {
             $token = base64_encode(str_random(64));
             
@@ -46,7 +47,7 @@ class JournalController extends Controller {
                 'time_login' => Carbon::now(),
             ]);
 
-            return response()->json(['status' => 'success', 'token' => $token, 'user' => $user]);
+            return response()->json(['status' => 'success', 'token' => $token, 'user' => $user, 'journal' => $journal]);
         }
         else {
             return response()->json(['status' => 'error'], 401);
@@ -56,9 +57,8 @@ class JournalController extends Controller {
     public function logout(Request $request)
     {
         $user = Auth::user();
-        dd($user);
 
-        $journal = Journal::where('token', $request->token)->last();
+        $journal = Journal::where([['token', $request->headers->get('token')],['platform', $request->headers->get('platform')]])->first();
 
         $journal->token = null;
         $journal->time_logout = Carbon::now();
