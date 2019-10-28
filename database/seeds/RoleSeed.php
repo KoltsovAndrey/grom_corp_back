@@ -15,5 +15,13 @@ class RoleSeed extends Seeder
         Role::create([
             'name' => 'admin',
         ]);
+
+        Role::create([
+            'name' => 'news',
+        ]);
+
+        Role::create([
+            'name' => 'user',
+        ]);
     }
 }
