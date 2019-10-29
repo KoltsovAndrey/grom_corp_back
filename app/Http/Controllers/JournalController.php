@@ -15,12 +15,20 @@ class JournalController extends Controller {
 
     public function list()
     {
-        return Journal::get();
+        $user = Auth::user();
+        if($user->role_id == 1)
+            return Journal::get();
+        else
+            return ['status' => 'no permittion'];
     }
 
     public function for_id(Request $request)
     {
-        return Journal::where('id', $request->id)->first();
+        $user = Auth::user();
+        if($user->role_id == 1)
+            return Journal::where('id', $request->id)->first();
+        else
+            return ['status' => 'no permittion'];
     }
 
     public function for_token()

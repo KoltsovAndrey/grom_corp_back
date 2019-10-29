@@ -16,35 +16,57 @@ class PostController extends Controller {
 
     public function for_id(Request $request)
     {
-        return Post::where('id', $request->id)->first();
+        $user = Auth::user();
+        if($user->role_id == 1)
+            return Post::where('id', $request->id)->first();
+        else
+            return ['status' => 'no permittion'];
     }
 
     public function create(Request $request)
     {
-        $post = Post::create([
-            'name' => $request->name,
-        ]);
+        $user = Auth::user();
+        if($user->role_id == 1)
+        {
+            $post = Post::create([
+                'name' => $request->name,
+            ]);
 
-        return $post;
+            return $post;
+        }
+        else
+            return ['status' => 'no permittion'];
     }
 
     public function update(Request $request)
     {
-        $post = Post::where('id', $request->id)->first();
+        $user = Auth::user();
+        if($user->role_id == 1)
+        {
+            $post = Post::where('id', $request->id)->first();
 
-        $post->name = $request->name;
+            $post->name = $request->name;
 
-        $post->save();
+            $post->save();
 
-        return $post;
+            return $post;
+        }
+        else
+            return ['status' => 'no permittion'];
     }
 
     public function delete(Request $request)
     {
-        $post = Post::where('id', $request->id)->first();
+        $user = Auth::user();
+        if($user->role_id == 1)
+        {
+            $post = Post::where('id', $request->id)->first();
 
-        $post->delete();
+            $post->delete();
 
-        return ['status' => 'success'];
+            return ['status' => 'success'];
+        }
+        else
+            return ['status' => 'no permittion'];
     }
 }

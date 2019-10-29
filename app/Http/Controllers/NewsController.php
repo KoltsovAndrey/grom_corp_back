@@ -23,35 +23,53 @@ class NewsController extends Controller {
 
     public function create(Request $request)
     {
-        $news = News::create([
-            'title' => $request->title,
-            'text' => $request->text,
-            'photo' => $request->photo,
-            'user_id' => $request->user_id,
-        ]);
+        $user = Auth::user();
+        if($user->role_id == 1 || $user->role_id == 2)
+        {
+            $news = News::create([
+                'title' => $request->title,
+                'text' => $request->text,
+                'photo' => $request->photo,
+                'user_id' => $request->user_id,
+            ]);
 
-        return $news;
+            return $news;
+        }
+        else
+            return ['status' => 'no permittion'];
     }
 
     public function update(Request $request)
     {
-        $news = News::where('id', $request->id)->first();
+        $user = Auth::user();
+        if($user->role_id == 1 || $user->role_id == 2)
+        {
+            $news = News::where('id', $request->id)->first();
 
-        $news->title = $request->title;
-        $news->text = $request->text;
-        $news->photo = $request->photo;
+            $news->title = $request->title;
+            $news->text = $request->text;
+            $news->photo = $request->photo;
 
-        $news->save();
+            $news->save();
 
-        return $news;
+            return $news;
+        }
+        else
+            return ['status' => 'no permittion'];
     }
 
     public function delete(Request $request)
     {
-        $news = News::where('id', $request->id)->first();
+        $user = Auth::user();
+        if($user->role_id == 1 || $user->role_id == 2)
+        { 
+            $news = News::where('id', $request->id)->first();
 
-        $news->delete();
+            $news->delete();
 
-        return ['status' => 'success'];
+            return ['status' => 'success'];
+        }
+        else
+            return ['status' => 'no permittion'];
     }
 }
