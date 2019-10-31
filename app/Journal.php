@@ -6,6 +6,8 @@ class Journal extends Model {
 
     protected $fillable = ["user_id", "token", "platform", "time_login", "time_logout"];
 
+    protected $hidden = ["created_at", "updated_at"];
+    
     protected $dates = ['time_login', 'time_logout'];
 
     public static $rules = [

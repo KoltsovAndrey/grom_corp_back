@@ -6,6 +6,8 @@ class News extends Model {
 
     protected $fillable = ["title", "text", "photo", "user_id"];
 
+    protected $hidden = ["created_at", "updated_at"];
+    
     protected $dates = [];
 
     public static $rules = [

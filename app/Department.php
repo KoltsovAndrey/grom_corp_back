@@ -6,6 +6,8 @@ class Department extends Model {
 
     protected $fillable = ["name", "full_name", "email", "phone", "phone_city"];
 
+    protected $hidden = ["created_at", "updated_at"];
+    
     protected $dates = [];
 
     public static $rules = [
