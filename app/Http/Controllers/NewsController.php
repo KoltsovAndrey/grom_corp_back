@@ -16,7 +16,7 @@ class NewsController extends Controller {
         // return News::get();
 
         return DB::table('news')
-                ->select('news.id', 'news.title', 'SUBSTRING(news.text, 1, 50)', 'news.photo', 'users.second_name')
+                ->select('news.id', 'news.title', 'news.text', 'news.photo', 'users.second_name')
                 ->leftJoin('users', 'news.user_id', 'users.id')
                 ->get();
     }
