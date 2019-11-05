@@ -13,7 +13,15 @@ class UserController extends Controller {
 
     public function list()
     {
-        return User::get();
+        return User::with('role', 'post', 'department')->get();
+
+        // $users = User::get();
+        // foreach ($users as $user) {
+        //     $user->role_id = $user->role->name;
+        //     $user->post_id = $user->post->name;
+        //     $user->department_id = $user->department->name;
+        // }
+        // return $users;
     }
 
     public function for_id(Request $request)
