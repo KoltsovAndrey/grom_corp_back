@@ -114,4 +114,11 @@ class UserController extends Controller {
         else
             return ['status' => 'no permittion'];
     }
+
+    public function name_list(Request $request)
+    {
+        return DB::table('users')
+                ->select('first_name + " " + second_name')
+                ->get();
+    }
 }
