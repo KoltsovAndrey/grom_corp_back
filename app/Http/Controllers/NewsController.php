@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers;
 
 use App\News;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller {
 
@@ -13,7 +13,12 @@ class NewsController extends Controller {
 
     public function list()
     {
-        return News::get();
+        // return News::get();
+
+        return DB::table('news')
+                ->select('news.id', 'news.title', 'SUBSTRING(news.text, 1, 50)', 'news.photo', 'users.second_name')
+                ->leftJoin('users', 'news.user_id', 'users.id')
+                ->get();
     }
 
     public function for_id(Request $request)

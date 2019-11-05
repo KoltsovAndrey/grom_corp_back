@@ -56,6 +56,14 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->post('/delete', 'UserController@delete');
     });
 
+    $router->group(['prefix' => '/news'], function () use ($router) {
+        $router->get('/', 'NewsController@list');
+        $router->get('/for_id/{id}', 'NewsController@for_id');
+        $router->post('/create', 'NewsController@create');
+        $router->post('/update', 'NewsController@update');
+        $router->post('/delete', 'NewsController@delete');
+    });
+
     $router->group(['prefix' => '/journal'], function () use ($router) {
         $router->get('/', 'JournalController@list');
         $router->get('/for_id/{id}', 'JournalController@for_id');
