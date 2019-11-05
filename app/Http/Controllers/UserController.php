@@ -4,6 +4,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller {
 
@@ -13,7 +14,7 @@ class UserController extends Controller {
 
     public function list()
     {
-        return User::with('role', 'post', 'department')->get();
+        // return User::with('role', 'post', 'department')->get();
 
         // $users = User::get();
         // foreach ($users as $user) {
@@ -22,6 +23,13 @@ class UserController extends Controller {
         //     $user->department_id = $user->department->name;
         // }
         // return $users;
+
+        return DB::table('users')
+                    ->select('users.id', 'users.first_name', 'users.second_name', 'users.middle_name', 'users.login', 'departments.name as department', 'posts.name as post', 'roles.name as role', 'users.email', 'users.phone', 'users.phone_city', 'users.photo')
+                    ->leftJoin('departments', 'users.department_id', 'departments.id')
+                    ->leftJoin('posts', 'users.post_id', 'posts.id')
+                    ->leftJoin('roles', 'users.role_id', 'roles.id')
+                    ->get();
     }
 
     public function for_id(Request $request)
