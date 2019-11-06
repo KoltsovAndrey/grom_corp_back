@@ -121,12 +121,12 @@ class UserController extends Controller {
                 ->select('first_name', 'second_name', 'middle_name')
                 ->get();
 
-        $users = [];
+        $users = array();
 
         foreach ($users_raw as $user) {
-            $users += ['name' => $user->second_name.' '.mb_strtoupper(substr($user->first_name, 0, 2)).'.'.mb_strtoupper(substr($user->middle_name, 0, 2)).'.'];
+            array_push( $users, array( 'name' => strval($user->second_name.' '.mb_strtoupper(substr($user->first_name, 0, 2)).'.'.mb_strtoupper(substr($user->middle_name, 0, 2)).'.'), ) );
         }
 
-        return $users;
+        return json_encode($users);
     }
 }
