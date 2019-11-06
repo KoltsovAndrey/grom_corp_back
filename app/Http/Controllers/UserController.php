@@ -124,7 +124,10 @@ class UserController extends Controller {
         $users = array();
 
         foreach ($users_raw as $user) {
-            array_push( $users, array( 'name' => strval($user->second_name.' '.mb_strtoupper(substr($user->first_name, 0, 2)).'.'.mb_strtoupper(substr($user->middle_name, 0, 2)).'.'), ) );
+            array_push($users, [
+                'id' => $user->id, 
+                'name' => strval($user->second_name.' '.mb_strtoupper(substr($user->first_name, 0, 2)).'.'.mb_strtoupper(substr($user->middle_name, 0, 2)).'.'), 
+            ]);
         }
 
         return json_encode($users);
