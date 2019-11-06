@@ -118,7 +118,7 @@ class UserController extends Controller {
     public function name_list(Request $request)
     {
         $users_raw = DB::table('users')
-                ->select('first_name', 'second_name', 'middle_name')
+                ->select('id', 'first_name', 'second_name', 'middle_name')
                 ->get();
 
         $users = array();
