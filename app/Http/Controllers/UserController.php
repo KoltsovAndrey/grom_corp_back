@@ -124,7 +124,7 @@ class UserController extends Controller {
         $users = [];
 
         foreach ($users_raw as $user) {
-            $users += array('name' => $user->second_name.' '.mb_strtoupper(substr($user->first_name, 0, 2)).'.'.mb_strtoupper(substr($user->middle_name, 0, 2)).'.');
+            $users += json_decode(array('name' => $user->second_name.' '.mb_strtoupper(substr($user->first_name, 0, 2)).'.'.mb_strtoupper(substr($user->middle_name, 0, 2)).'.'));
         }
 
         return $users;
