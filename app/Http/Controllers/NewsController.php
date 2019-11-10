@@ -34,7 +34,7 @@ class NewsController extends Controller {
             $news = News::create([
                 'title' => $request->title,
                 'text' => $request->text,
-                'photo' => $request->photo,
+                'photo' => $request->photo('image')->move_uploaded_file(str_random(32).'.png', '/storage/app/img/'),
                 'user_id' => $request->user_id,
             ]);
 
