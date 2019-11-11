@@ -26,6 +26,8 @@ class NewsController extends Controller {
         foreach ($news_ar as $news) {
             $news->created_at = Carbon::parse($news->created_at)->format('d.M.y h.mm');
         }
+
+        return $news_ar;
     }
 
     public function for_id(Request $request)
