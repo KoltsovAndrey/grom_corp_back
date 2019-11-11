@@ -56,6 +56,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
         $router->post('/delete', 'UserController@delete');
 
         $router->get('/name_list', 'UserController@name_list');
+        $router->get('/user_list', 'UserController@user_list');
     });
 
     $router->group(['prefix' => '/news'], function () use ($router) {

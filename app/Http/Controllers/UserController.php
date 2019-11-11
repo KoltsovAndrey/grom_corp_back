@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Department;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -131,5 +132,24 @@ class UserController extends Controller {
         }
 
         return json_encode($users);
+    }
+
+    public function user_list()
+    {
+        // return DB::table('departments')
+        //     ->select('departments.full_name', 'departments.name', 'departments.phone', 'departments.phone_city', 'departments.email', 'users.second_name')
+        //     ->leftJoin('users', 'users.department_id', 'departments.id')
+        //     ->orderBy('departments.full_name', 'asc')
+        //     ->groupBy('departments.full_name', 'departments.name', 'departments.phone', 'departments.phone_city', 'departments.email')
+        //     ->get();
+        $list = Department::orderBy('full_name', 'asc')->get();
+        foreach($list as $el) {
+            $users = $el->user;
+            foreach ($users as $user) {
+                $user->role;
+                $user->post;
+            }            
+        }
+        return $list;
     }
 }
