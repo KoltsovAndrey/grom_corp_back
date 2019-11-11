@@ -2,6 +2,7 @@
 
 use App\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -17,10 +18,14 @@ class NewsController extends Controller {
     {
         // return News::get();
 
-        return DB::table('news')
+        $news_ar = DB::table('news')
                 ->select('news.id', 'news.title', 'news.text', 'news.photo', 'users.second_name', 'users.first_name', 'users.middle_name', 'news.created_at')
                 ->leftJoin('users', 'news.user_id', 'users.id')
                 ->get();
+
+        foreach ($news_ar as $news) {
+            $news->created_at = Carbon::parse($news->created_at)->format('d.M.y h.mm');
+        }
     }
 
     public function for_id(Request $request)
