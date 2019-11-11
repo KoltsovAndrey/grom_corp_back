@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 class NewsController extends Controller {
 
     const MODEL = "App\User";
@@ -16,7 +18,7 @@ class NewsController extends Controller {
         // return News::get();
 
         return DB::table('news')
-                ->select('news.id', 'news.title', 'news.text', 'news.photo', 'users.second_name')
+                ->select('news.id', 'news.title', 'news.text', 'news.photo', 'users.second_name', 'users.first_name', 'users.middle_name', 'news.created_at')
                 ->leftJoin('users', 'news.user_id', 'users.id')
                 ->get();
     }
@@ -29,19 +31,23 @@ class NewsController extends Controller {
     public function create(Request $request)
     {
         $user = Auth::user();
-        if($user->role_id == 1 || $user->role_id == 2)
-        {
-            $news = News::create([
-                'title' => $request->title,
-                'text' => $request->text,
-                'photo' => $request->photo('image')->move_uploaded_file(str_random(32).'.png', '/storage/app/img/'),
-                'user_id' => $request->user_id,
-            ]);
+        $file = null;
+        $file = $request->file('photo')->isValid();
+        return $file;
+        // if($user->role_id == 1 || $user->role_id == 2)
+        // {
+        //     $news = News::create([
+        //         'title' => $request->title,
+        //         'text' => $request->text,
+        //         'photo' => '',
+        //         'user_id' => $request->user_id,
+                
+        //     ]);
 
-            return $news;
-        }
-        else
-            return ['status' => 'no permittion'];
+        //     return $news;
+        // }
+        // else
+        //     return ['status' => 'no permittion'];
     }
 
     public function update(Request $request)
