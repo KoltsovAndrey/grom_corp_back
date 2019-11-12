@@ -17,21 +17,14 @@ class NewsController extends Controller {
 
     public function list()
     {
-        // return News::get();
-
         $news_ar = DB::table('news')
                 ->select('news.id', 'news.title', 'news.text', 'news.photo', 'users.second_name', 'users.first_name', 'users.middle_name', 'news.created_at')
                 ->leftJoin('users', 'news.user_id', 'users.id')
+                ->orderBy('news.id', 'desc')
                 ->get();
 
         foreach ($news_ar as $news) {
-            // dd(Carbon::parse($news->created_at)->toArray());
             $news->created_at = Carbon::parse($news->created_at)->format('d.m.Y'); //H:i:s
-            // $news->photo = response()->download($news->photo);
-            // Storage::disk('public')->setVisibility('img/'.$news->photo, 'public');
-            // $path = './../storage/app/public/img/'.$news->photo;
-            // $news->photo = Image::make($path)->response();
-            // $news->photo = (string)(Storage::disk('public')->getVisibility('img/'.$news->photo));
             $news->photo = url('/news/get_image/'.$news->id);
         }
 
@@ -59,11 +52,13 @@ class NewsController extends Controller {
         $user = Auth::user();
         if($user->role_id == 1 || $user->role_id == 2)
         {
+            $photo_name = $user->id.'_'.str_random(5).'.'.$request->file('photo')->getClientOriginalExtension();
+            $request->file('photo')->move('./../storage/app/public/img', $photo_name);
             $news = News::create([
                 'title' => $request->title,
                 'text' => $request->text,
-                'photo' => $request->file('photo')->move('./../storage/app/public/img', $user->id.'_'.str_random(5).'.'.$request->file('photo')->getClientOriginalExtension()),
-                'user_id' => $request->user_id,
+                'photo' => $photo_name,
+                'user_id' => $user->id,
                 
             ]);
 
