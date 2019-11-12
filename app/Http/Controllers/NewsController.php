@@ -26,6 +26,7 @@ class NewsController extends Controller {
         foreach ($news_ar as $news) {
             // dd(Carbon::parse($news->created_at)->toArray());
             $news->created_at = Carbon::parse($news->created_at)->format('d.m.Y'); //H:i:s
+            $news->photo = response()->download($news->photo);
         }
 
         return $news_ar;
@@ -33,29 +34,30 @@ class NewsController extends Controller {
 
     public function for_id(Request $request)
     {
-        return News::where('id', $request->id)->first();
+        $news = News::where('id', $request->id)->first();
+
+        // $news->photo = response()->download($news->photo);
+        
+        return $news;
     }
 
     public function create(Request $request)
     {
         $user = Auth::user();
-        $file = null;
-        $file = $request->file('photo')->isValid();
-        return $file;
-        // if($user->role_id == 1 || $user->role_id == 2)
-        // {
-        //     $news = News::create([
-        //         'title' => $request->title,
-        //         'text' => $request->text,
-        //         'photo' => '',
-        //         'user_id' => $request->user_id,
+        if($user->role_id == 1 || $user->role_id == 2)
+        {
+            $news = News::create([
+                'title' => $request->title,
+                'text' => $request->text,
+                'photo' => $request->file('photo')->move('./../storage/app/img', $user->id.'_'.str_random(5).'.'.$request->file('photo')->getClientOriginalExtension()),
+                'user_id' => $request->user_id,
                 
-        //     ]);
+            ]);
 
-        //     return $news;
-        // }
-        // else
-        //     return ['status' => 'no permittion'];
+            return $news;
+        }
+        else
+            return ['status' => 'no permittion'];
     }
 
     public function update(Request $request)
