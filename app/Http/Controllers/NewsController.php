@@ -5,8 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Intervention\Image\Facades\Image;
 
 class NewsController extends Controller {
 
@@ -27,9 +28,21 @@ class NewsController extends Controller {
             // dd(Carbon::parse($news->created_at)->toArray());
             $news->created_at = Carbon::parse($news->created_at)->format('d.m.Y'); //H:i:s
             // $news->photo = response()->download($news->photo);
+            // Storage::disk('public')->setVisibility('img/'.$news->photo, 'public');
+            // $path = './../storage/app/public/img/'.$news->photo;
+            // $news->photo = Image::make($path)->response();
+            // $news->photo = (string)(Storage::disk('public')->getVisibility('img/'.$news->photo));
+            $news->photo = url('/news/get_image/'.$news->id);
         }
 
         return $news_ar;
+    }
+
+    public function get_image(Request $request)
+    {
+        $path = './../storage/app/public/img/'.News::find($request->news_id)->photo;
+        // dd($path);
+        return Image::make($path)->response();
     }
 
     public function for_id(Request $request)
@@ -49,7 +62,7 @@ class NewsController extends Controller {
             $news = News::create([
                 'title' => $request->title,
                 'text' => $request->text,
-                'photo' => $request->file('photo')->move('./../storage/app/img', $user->id.'_'.str_random(5).'.'.$request->file('photo')->getClientOriginalExtension()),
+                'photo' => $request->file('photo')->move('./../storage/app/public/img', $user->id.'_'.str_random(5).'.'.$request->file('photo')->getClientOriginalExtension()),
                 'user_id' => $request->user_id,
                 
             ]);

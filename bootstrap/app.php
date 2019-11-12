@@ -80,6 +80,8 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+$app->register(Intervention\Image\ImageServiceProviderLumen::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -96,5 +98,11 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
+
+$app->configure('filesystems');
+
+if (!class_exists('Storage')) class_alias('Illuminate\Support\Facades\Storage', 'Storage');
+
+$app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
 
 return $app;
