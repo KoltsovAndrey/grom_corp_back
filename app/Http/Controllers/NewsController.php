@@ -26,7 +26,7 @@ class NewsController extends Controller {
         foreach ($news_ar as $news) {
             // dd(Carbon::parse($news->created_at)->toArray());
             $news->created_at = Carbon::parse($news->created_at)->format('d.m.Y'); //H:i:s
-            $news->photo = response()->download($news->photo);
+            // $news->photo = response()->download($news->photo);
         }
 
         return $news_ar;

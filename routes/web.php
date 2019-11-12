@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 $router->get('/', function () use ($router) {
     return 'grom corp api';
 });
@@ -73,4 +75,8 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     });
 
     $router->post('/logout', 'JournalController@logout');
+});
+
+$router->get('/storage/{img}', function (Request $request) {
+    return url('./../storage/app/img/1_XRjER.png');
 });
