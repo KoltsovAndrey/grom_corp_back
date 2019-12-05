@@ -144,11 +144,19 @@ class UserController extends Controller {
         //     ->get();
         $list = Department::orderBy('full_name', 'asc')->get();
         foreach($list as $el) {
-            $users = $el->user;
+            // $users = $el->user;
+            
+            $users = User::where('department_id', $el->id)->orderBy('post_id', 'asc')->get();
+
             foreach ($users as $user) {
                 $user->role;
                 $user->post;
-            }            
+            }
+            
+            $el->user = $users;
+            // $el->users = collect($el->user)->sortBy('post_id');
+
+            // $el = collect($el->users)->sortByDesc('post_id');
         }
         return $list;
     }
